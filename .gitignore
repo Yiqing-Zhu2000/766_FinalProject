@@ -1,0 +1,13 @@
+
+bert-base-uncased/
+__pycache__/
+*.pyc
+
+
+# 训练输出目录
+bert_ckpt/
+logs/
+output_model/
+
+*.zip
+*.tar.gz

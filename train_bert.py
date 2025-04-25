@@ -2,9 +2,9 @@
 import os
 import pickle
 import torch
+import time
 from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
 from torch.utils.data import Dataset
-from sklearn.metrics import classification_report
 from utils import load_texts_and_labels, load_val_indices
 
 class NewsDataset(Dataset):
@@ -32,9 +32,10 @@ def compute_metrics(eval_pred):
     }
 
 def main():
-    data_dir = "GtSample50000"
+    data_dir = "data/GtSample50000"
     val_path = f"{data_dir}/val_indices/GtSample50000_val_indices.pickle"
 
+    print(f"🟢 Loading dataset from: {data_dir}")
     train_texts, train_labels, test_texts, test_labels = load_texts_and_labels(data_dir)
     val_indices = load_val_indices(val_path)
 
@@ -43,25 +44,29 @@ def main():
     val_texts_arr   = [train_texts[i] for i in val_indices]
     val_labels_arr  = [train_labels[i] for i in val_indices]
 
-    tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-    model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=4)
+    model_path = "./bert-base-uncased"
+    tokenizer = BertTokenizer.from_pretrained(model_path)
+    model = BertForSequenceClassification.from_pretrained(model_path, num_labels=4)
 
     train_dataset = NewsDataset(train_texts_arr, train_labels_arr, tokenizer)
     val_dataset = NewsDataset(val_texts_arr, val_labels_arr, tokenizer)
 
+    output_path = "./output_model/bert_clean"
+
     training_args = TrainingArguments(
-        output_dir="./bert_ckpt",
-        evaluation_strategy="epoch",
+        output_dir=output_path,
+        do_train=True,
+        do_eval=True,
         save_strategy="epoch",
-        logging_dir="./logs",
+        save_total_limit=1,
+        per_device_train_batch_size=8,
+        per_device_eval_batch_size=8,
         num_train_epochs=3,
-        per_device_train_batch_size=16,
-        per_device_eval_batch_size=16,
         warmup_steps=500,
         weight_decay=0.01,
-        logging_steps=10,
-        load_best_model_at_end=True,
-        metric_for_best_model="macro_f1"
+        fp16=True,
+        logging_dir=output_path + "/logs",
+        logging_steps=1000000
     )
 
     trainer = Trainer(
@@ -69,19 +74,18 @@ def main():
         args=training_args,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
-        compute_metrics=compute_metrics
+        compute_metrics=compute_metrics,
+        tokenizer=tokenizer
     )
 
+    print("🚀 Training BERT ...")
+    start_time = time.time()
     trainer.train()
+    end_time = time.time()
+    print(f"⏱️ Training time: {(end_time - start_time) / 60:.2f} minutes")
 
-    # Test set prediction
-    test_encodings = tokenizer(test_texts, truncation=True, padding=True, max_length=512, return_tensors="pt")
-    with torch.no_grad():
-        outputs = model(**{k: v for k, v in test_encodings.items()})
-    preds = torch.argmax(outputs.logits, axis=1).cpu().numpy()
-
-    print("Test classification report:")
-    print(classification_report(test_labels, preds))
+    trainer.save_model(output_path)
+    tokenizer.save_pretrained(output_path)
 
 if __name__ == "__main__":
     main()
