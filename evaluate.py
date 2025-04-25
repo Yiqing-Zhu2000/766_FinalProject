@@ -1,17 +1,16 @@
 
+import os
 import torch
 from torch.utils.data import DataLoader
 from transformers import BertTokenizer, BertForSequenceClassification
 from sklearn.metrics import classification_report
 from utils import load_texts_and_labels
 from train_bert import NewsDataset
-import os
 
 def evaluate(model_dir, batch_size=4):
     model_name = os.path.basename(model_dir.rstrip("/"))
-    print(f"📦 Evaluating model: {model_name}")
+    print(f"\n📦 Evaluating model: {model_name}")
     print(f"📍 Model path: {model_dir}")
-    print("🧪 Loading clean test set from data/GtSample50000")
 
     tokenizer = BertTokenizer.from_pretrained(model_dir)
     model = BertForSequenceClassification.from_pretrained(model_dir)
@@ -41,4 +40,5 @@ def evaluate(model_dir, batch_size=4):
     print(classification_report(all_labels, all_preds, target_names=target_names))
 
 if __name__ == "__main__":
-    evaluate(model_dir="./output_model/bert_clean", batch_size=4)
+    for name in ["bert_clean", "bert_noisybest", "bert_noisymid"]:
+        evaluate(model_dir=f"./output_model/{name}", batch_size=4)
