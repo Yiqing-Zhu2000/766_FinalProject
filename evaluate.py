@@ -40,5 +40,5 @@ def evaluate(model_dir, batch_size=4):
     print(classification_report(all_labels, all_preds, target_names=target_names))
 
 if __name__ == "__main__":
-    for name in ["bert_clean", "bert_noisybest", "bert_noisymid"]:
+    for name in ["bert_clean", "bert_noisybest", "bert_noisymid", "bert_noisyworst"]:
         evaluate(model_dir=f"./output_model/{name}", batch_size=4)
