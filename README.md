@@ -28,6 +28,7 @@ wget https://hf-mirror.com/google-bert/bert-base-uncased/resolve/main/tokenizer_
 wget https://hf-mirror.com/google-bert/bert-base-uncased/resolve/main/tokenizer.json
 wget https://hf-mirror.com/google-bert/bert-base-uncased/resolve/main/vocab.txt
 ```
+Similar steps to download roBERTa model. Utilizing this method to download is because there is some limitations with the rented remote GPU.
 
 ## 3. run those train models for each model and datasets.
 BERT and reBERTa model would be utilized for each noisydata situation.
