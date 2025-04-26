@@ -9,8 +9,8 @@ from train_bert import NewsDataset
 
 def evaluate(model_dir, batch_size=4):
     model_name = os.path.basename(model_dir.rstrip("/"))
-    print(f"\n📦 Evaluating model: {model_name}")
-    print(f"📍 Model path: {model_dir}")
+    print(f" Evaluating model: {model_name}")
+    print(f" Model path: {model_dir}")
 
     tokenizer = BertTokenizer.from_pretrained(model_dir)
     model = BertForSequenceClassification.from_pretrained(model_dir)
@@ -36,7 +36,7 @@ def evaluate(model_dir, batch_size=4):
             all_labels.extend(batch['labels'])
 
     target_names = ["World", "Sports", "Business", "Sci/Tech"]
-    print("📊 Evaluation on clean test set complete:")
+    print(" Evaluation on clean test set complete:")
     print(classification_report(all_labels, all_preds, target_names=target_names))
 
 if __name__ == "__main__":

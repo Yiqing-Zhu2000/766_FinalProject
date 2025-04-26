@@ -1,6 +1,3 @@
-
-# train_logreg_noisybest.py
-
 import os
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer

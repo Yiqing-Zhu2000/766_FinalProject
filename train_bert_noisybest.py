@@ -35,7 +35,7 @@ def main():
     data_dir = "data/NoisyAG-NewsBest"
     val_path = f"{data_dir}/val_indices/NoisyAG-NewsBest_val_indices.pickle"
 
-    print(f"🟢 Loading dataset from: {data_dir}")
+    print(f" Loading dataset from: {data_dir}")
     train_texts, train_labels, test_texts, test_labels = load_texts_and_labels(data_dir)
     val_indices = load_val_indices(val_path)
 
@@ -78,11 +78,11 @@ def main():
         tokenizer=tokenizer
     )
 
-    print("🚀 Training BERT ...")
+    print(" Training BERT ...")
     start_time = time.time()
     trainer.train()
     end_time = time.time()
-    print(f"⏱️ Training time: {{(end_time - start_time) / 60:.2f}} minutes")
+    print(f" Training time: {{(end_time - start_time) / 60:.2f}} minutes")
 
     trainer.save_model(output_path)
     tokenizer.save_pretrained(output_path)

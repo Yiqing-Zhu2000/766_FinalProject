@@ -78,11 +78,11 @@ def main():
         tokenizer=tokenizer
     )
 
-    print("🚀 Training BERT ...")
+    print(" Training BERT ...")
     start_time = time.time()
     trainer.train()
     end_time = time.time()
-    print(f"⏱️ Training time: {{(end_time - start_time) / 60:.2f}} minutes")
+    print(f" Training time: {{(end_time - start_time) / 60:.2f}} minutes")
 
     trainer.save_model(output_path)
     tokenizer.save_pretrained(output_path)
