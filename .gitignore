@@ -1,5 +1,6 @@
 
 bert-base-uncased/
+roberta-base/
 __pycache__/
 *.pyc
 
