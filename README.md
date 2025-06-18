@@ -37,3 +37,14 @@ logistics regression training file would already contain the evaluation part.
 ## 4. run evaluate files for comparing the results of pre-trained Transformer-Based Models.
 
 ## 5. run error_diff_recall.py to compare the relation between classes and models. 
+
+---
+
+## Use ComputeCanada to run
+- in CCfolder, bert_CCtest4ENV.sh is about the virtual environment, can use freeze to get suitable requirements.txt file. But this file would use the local .py file to run
+```bash
+pip freeze | sed 's/+computecanada//' > requirements_clean.txt 
+```
+- the ComputeCanadaUse/bert_CCtest8Success.sh file is the final version can be used with sbatch. Put all data and codes to $SLURM_TMPDIR and get output models under $SLURM_TMPDIR/Tmp/output_model_CC, this would be cp back to local layer. 
+- For details how to use, check my notion link:
+[2025Summer/ComputeCanada启动！]（https://www.notion.so/ComputeCanada-1ebf7996c05280f1998ef25755510639）
