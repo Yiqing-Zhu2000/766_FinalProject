@@ -95,4 +95,4 @@ For the Tmp folder is :
 └── utils.py
 ```
 - For details how to use, check my notion link:
-[2025Summer/ComputeCanada启动！]（https://www.notion.so/ComputeCanada-1ebf7996c05280f1998ef25755510639）
+[2025Summer/ComputeCanada启动！](https://www.notion.so/ComputeCanada-1ebf7996c05280f1998ef25755510639)
