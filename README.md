@@ -46,5 +46,51 @@ logistics regression training file would already contain the evaluation part.
 pip freeze | sed 's/+computecanada//' > requirements_clean.txt 
 ```
 - the ComputeCanadaUse/bert_CCtest8Success.sh file is the final version can be used with sbatch. Put all data and codes to $SLURM_TMPDIR and get output models under $SLURM_TMPDIR/Tmp/output_model_CC, this would be cp back to local layer. 
+
+For the Tmp folder is :
+.
+├── bert-base-uncased
+│   ├── config.json
+│   ├── pytorch_model.bin
+│   ├── tokenizer_config.json
+│   ├── tokenizer.json
+│   └── vocab.txt
+├── data
+│   ├── GtSample50000
+│   │   ├── txt_data
+│   │   │   ├── test_labels.pickle
+│   │   │   ├── test.txt
+│   │   │   ├── train_labels.pickle
+│   │   │   └── train.txt
+│   │   └── val_indices
+│   │       └── GtSample50000_val_indices.pickle
+│   ├── NoisyAG-NewsBest
+│   │   ├── txt_data
+│   │   │   ├── test_labels.pickle
+│   │   │   ├── test.txt
+│   │   │   ├── train_labels.pickle
+│   │   │   └── train.txt
+│   │   └── val_indices
+│   │       └── NoisyAG-NewsBest_val_indices.pickle
+│   ├── NoisyAG-NewsMid
+│   │   ├── txt_data
+│   │   │   ├── test_labels.pickle
+│   │   │   ├── test.txt
+│   │   │   ├── train_labels.pickle
+│   │   │   └── train.txt
+│   │   └── val_indices
+│   │       └── NoisyAG-NewsMid_val_indices.pickle
+│   └── NoisyAG-NewsWorst
+│       ├── txt_data
+│       │   ├── test_labels.pickle
+│       │   ├── test.txt
+│       │   ├── train_labels.pickle
+│       │   └── train.txt
+│       └── val_indices
+│           └── NoisyAG-NewsWorst_val_indices.pickle
+├── requirements_clean.txt
+├── train_bert_noisybest.py
+├── train_bert.py
+└── utils.py
 - For details how to use, check my notion link:
 [2025Summer/ComputeCanada启动！]（https://www.notion.so/ComputeCanada-1ebf7996c05280f1998ef25755510639）
