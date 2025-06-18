@@ -48,6 +48,7 @@ pip freeze | sed 's/+computecanada//' > requirements_clean.txt
 - the ComputeCanadaUse/bert_CCtest8Success.sh file is the final version can be used with sbatch. Put all data and codes to $SLURM_TMPDIR and get output models under $SLURM_TMPDIR/Tmp/output_model_CC, this would be cp back to local layer. 
 
 For the Tmp folder is :
+```
 .
 ├── bert-base-uncased
 │   ├── config.json
@@ -92,5 +93,6 @@ For the Tmp folder is :
 ├── train_bert_noisybest.py
 ├── train_bert.py
 └── utils.py
+```
 - For details how to use, check my notion link:
 [2025Summer/ComputeCanada启动！]（https://www.notion.so/ComputeCanada-1ebf7996c05280f1998ef25755510639）
